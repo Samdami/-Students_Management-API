@@ -17,6 +17,10 @@ auth_namespace = Namespace('auth', description='name space for authentication')
 
 lecturer_signup_model = auth_namespace.model('Lecturer Signup Model', lecturer_signup_field)
 
+password_reset_request_model = auth_namespace.model('PasswordResetRequest', pasword_reset_request_field)
+
+password_reset_model = auth_namespace.model('PasswordReset', password_reset_field)
+
 signup_model = auth_namespace.model(
     'Signup', {
         'first_name': fields.String(required=True, description="A name"),
