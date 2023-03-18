@@ -17,10 +17,6 @@ auth_namespace = Namespace('auth', description='name space for authentication')
 
 lecturer_signup_model = auth_namespace.model('Lecturer Signup Model', lecturer_signup_field)
 
-password_reset_request_model = auth_namespace.model('PasswordResetRequest', pasword_reset_request_field)
-
-password_reset_model = auth_namespace.model('PasswordReset', password_reset_field)
-
 signup_model = auth_namespace.model(
     'Signup', {
         'first_name': fields.String(required=True, description="A name"),
@@ -54,10 +50,7 @@ class SignUp(Resource):
         """
 
         data = request.get_json()
-        # Check if user already exists
-        user = User.query.filter_by(email=data.get('email', None)).first()
-        if user:
-            return {'message': 'User already exists'} , HTTPStatus.CONFLICT
+
         current_year =  str(datetime.now().year)    
         if data.get('user_type') == 'student':
             admission = generate_random_string(5) + current_year
@@ -94,7 +87,7 @@ class SignUp(Resource):
         except:
             db.session.rollback()
             return {
-                'message': 'CAN ADD USER SOMETHING WENT WRORG CONTACT ADMIN'
+                'message': 'CAN ADD USER SOMETHING WENT WRORG'
             }, HTTPStatus.INTERNAL_SERVER_ERROR    
             
             
@@ -113,8 +106,14 @@ class SignUpLecturer(Resource):
         """
         data = request.get_json()
 
+        # check if lecturer already exists
+        user = User.query.filter_by(email=data.get('email')).first()
+        if user:
+            return {
+                'message': "Email already exists"
+            }, HTTPStatus.CONFLICT
         
-
+        username = generate_random_string(10)
         current_year =  str(datetime.now().year)
 
 
