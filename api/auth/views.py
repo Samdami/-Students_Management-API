@@ -76,22 +76,17 @@ class SignUp(Resource):
                 email = data.get('email'),
                 first_name = data.get('first_name'),
                 last_name = data.get('last_name'),
-                # username=username,
                 password_hash = generate_password_hash(data.get('password')),
                 matric_no = admission,
                 user_type = 'student'
             )
         elif data.get('user_type') == 'admin':
-            # nomination = 'Admin'
             new_user = Admin(
                 email = data.get('email'),
                 first_name = data.get('first_name'),
                 last_name = data.get('last_name'),
-                # username=username,
                 password_hash = generate_password_hash(data.get('password')),
-                # nomination=nomination,
-                user_type = 'admin',
-                # is_admin=True
+                user_type = 'admin'
             )
         else:
             return {
@@ -138,16 +133,13 @@ class SignUpLecturer(Resource):
         username = generate_random_string(10)
         current_year =  str(datetime.now().year)
 
-        # staff = 'LCT@' + generate_random_string(5) + current_year
-        # if data.get('user_type') == "lecturer":
+
         new_user = Lecturer(
             first_name = data.get('first_name'),
             last_name = data.get('last_name'),
             email = data.get('email'),
             user_type = 'lecturer',
-            # username=username,
             password_hash = generate_password_hash(data.get('password'))
-            # staff_no = staff,    
         
             
             )
