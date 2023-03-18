@@ -57,7 +57,7 @@ class SignUp(Resource):
 
         current_year =  str(datetime.now().year)    
         if data.get('user_type') == 'student':
-            admission = 'STD@' + generate_random_string(5) + current_year
+            admission = generate_random_string(5) + current_year
             new_user = Student(
                 email = data.get('email'),
                 first_name = data.get('first_name'),
