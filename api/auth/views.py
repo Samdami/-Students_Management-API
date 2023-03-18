@@ -64,10 +64,6 @@ class SignUp(Resource):
             
         current_year =  str(datetime.now().year)    
             
-        if len(Admin.query.all()) > 2:
-            return {
-                'message': 'You are not authorized to be an Admin, Contact the Owner.'
-            }, HTTPStatus.BAD_REQUEST    
 
 
         if data.get('user_type') == 'student':
