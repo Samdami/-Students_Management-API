@@ -55,7 +55,7 @@ class SignUp(Resource):
 
         data = request.get_json()
 
-
+        current_year =  str(datetime.now().year)    
         if data.get('user_type') == 'student':
             admission = 'STD@' + generate_random_string(5) + current_year
             new_user = Student(
@@ -79,7 +79,7 @@ class SignUp(Resource):
                 'message': 'Invalid user type'
             }, HTTPStatus.BAD_REQUEST
             
-        current_year =  str(datetime.now().year)   
+        
         
         try:
             new_user.save()
