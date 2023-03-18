@@ -85,7 +85,7 @@ class SignUp(Resource):
                 'message': 'Welcome'
             },HTTPStatus.CREATED    
 
-            
+        
         # except:
         #     db.session.rollback()
         #     return {
