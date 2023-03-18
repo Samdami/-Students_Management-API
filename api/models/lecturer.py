@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Lecturer(User):
     __tablename__ = 'lecturers'
-    id = db.Column(db.Integer(), db.ForeignKey('users.id'), primary_key=True)
+    id = db.Column(db.Integer(), db.ForeignKey('users_id'), primary_key=True)
     staff_no = db.Column(db.String(50), unique=True)
     courses = db.relationship('Course', backref='lecturer_course')
 

@@ -2,7 +2,7 @@ from ..utils import db
 from datetime import datetime
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer(), primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
@@ -36,7 +36,7 @@ class User(db.Model):
     
 class Student(User):
     __tablename__ = 'students'
-    id = db.Column(db.Integer(), db.ForeignKey('users.id'), primary_key=True)
+    id = db.Column(db.Integer(), db.ForeignKey('users_id'), primary_key=True)
     matric_no = db.Column(db.String(30), unique=True)
     course = db.relationship('Course', secondary='student_course')
     score = db.relationship('Score', backref="student_score", lazy=True)
@@ -66,7 +66,7 @@ class Student(User):
     
 class Admin(User):
     __tablename__ = 'admin'
-    id = db.Column(db.Integer(), db.ForeignKey('users.id'), primary_key=True)
+    id = db.Column(db.Integer(), db.ForeignKey('users_id'), primary_key=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'admin'
