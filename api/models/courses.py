@@ -1,11 +1,11 @@
 from ..utils import db
 from datetime import datetime
+from ..models.users import Student 
 
 class Course(db.Model):
     __tablename__ = 'courses'
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
-    # teacher = db.Column(db.String(100), nullable=False, unique=True)
+    course_code = db.Column(db.String(10), unique=True)
     lecturer_id = db.Column(db.Integer, db.ForeignKey('lecturers.id'))
     
 
