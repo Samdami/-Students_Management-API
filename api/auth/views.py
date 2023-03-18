@@ -54,7 +54,10 @@ class SignUp(Resource):
         """
 
         data = request.get_json()
-
+        # Check if user already exists
+        user = User.query.filter_by(email=data.get('email', None)).first()
+        if user:
+            return {'message': 'User already exists'} , HTTPStatus.CONFLICT
         current_year =  str(datetime.now().year)    
         if data.get('user_type') == 'student':
             admission = generate_random_string(5) + current_year
@@ -83,16 +86,12 @@ class SignUp(Resource):
         
         try:
             new_user.save()
-               
-            return {
-                'message': 'Welcome'
-            },HTTPStatus.CREATED
-
         except:
-            db.session.rollback()
-            return {
-                'message': 'CAN ADD USER SOMETHING WENT WRORG CONTACT ADMIN'
-            }, HTTPStatus.INTERNAL_SERVER_ERROR    
+            db.session.rollback()      
+            return {'message': 'An error occurred while saving user'}, HTTPStatus.INTERNAL_SERVER_ERROR
+        return {'message': 'User registered successfully'},  HTTPStatus.CREATED
+       
+               
             
             
 @auth_namespace.route('/signup/lecturer')
