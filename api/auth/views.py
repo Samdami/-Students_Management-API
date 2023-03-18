@@ -56,11 +56,11 @@ class SignUp(Resource):
         data = request.get_json()
         
         # check if user already exists
-        # user = User.query.filter_by(email=data.get('email')).first()
-        # if user:
-        #     return {
-        #         'message': "User already exists"
-        #     }, HTTPStatus.CONFLICT
+        user = User.query.filter_by(email=data.get('email')).first()
+        if user:
+            return {
+                'message': "User already exists"
+            }, HTTPStatus.CONFLICT
             
         current_year =  str(datetime.now().year)    
             
