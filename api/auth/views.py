@@ -89,7 +89,6 @@ class SignUp(Resource):
             },HTTPStatus.CREATED
 
         except:
-            db.session.rollback()
             return {
                 'message': 'Something went wrong'
             }, HTTPStatus.INTERNAL_SERVER_ERROR    
