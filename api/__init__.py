@@ -39,7 +39,7 @@ def create_app(config=config_dict['dev']):
         title='Student Management API', 
         description='A REST Student Management API ',
         authorizations=authorizations,
-        security='Bearer Auth'
+        security='apikey'
         )
     
     api.add_namespace(auth_namespace, path='/auth')  
