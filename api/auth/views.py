@@ -79,19 +79,18 @@ class SignUp(Resource):
                 'message': 'Invalid user type'
             }, HTTPStatus.BAD_REQUEST
             
-        
-        
-        try:
-            new_user.save()
+        new_user.save()
                
-            return {
+        return {
                 'message': 'Welcome'
-            },HTTPStatus.CREATED
+            },HTTPStatus.CREATED    
 
-        except:
-            return {
-                'message': 'Something went wrong'
-            }, HTTPStatus.INTERNAL_SERVER_ERROR    
+            
+        # except:
+        #     db.session.rollback()
+        #     return {
+        #         'message': 'Something went wrong'
+        #     }, HTTPStatus.INTERNAL_SERVER_ERROR    
             
             
 @auth_namespace.route('/signup/lecturer')
