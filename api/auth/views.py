@@ -54,6 +54,14 @@ class SignUp(Resource):
         """
 
         data = request.get_json()
+        
+                # check if lecturer already exists
+        user = User.query.filter_by(email=data.get('email')).first()
+        if user:
+            return {
+                'message': "Email already exists"
+            }, HTTPStatus.CONFLICT
+        
 
         current_year =  str(datetime.now().year)    
         if data.get('user_type') == 'student':
