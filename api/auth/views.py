@@ -86,12 +86,16 @@ class SignUp(Resource):
         
         try:
             new_user.save()
-        except:
-            db.session.rollback()      
-            return {'message': 'An error occurred while saving user'}, HTTPStatus.INTERNAL_SERVER_ERROR
-        return {'message': 'User registered successfully'},  HTTPStatus.CREATED
-       
                
+            return {
+                'message': 'Welcome'
+            },HTTPStatus.CREATED
+
+        except:
+            db.session.rollback()
+            return {
+                'message': 'CAN ADD USER SOMETHING WENT WRORG CONTACT ADMIN'
+            }, HTTPStatus.INTERNAL_SERVER_ERROR    
             
             
 @auth_namespace.route('/signup/lecturer')
