@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request
 from flask_restx import Namespace, Resource, fields
 from ..models.users import User, Student, Admin
 from ..models.lecturer import Lecturer
@@ -54,16 +54,6 @@ class SignUp(Resource):
         """
 
         data = request.get_json()
-        
-        # check if user already exists
-        # user = User.query.filter_by(email=data.get('email')).first()
-        # if user:
-        #     return {
-        #         'message': "User already exists"
-        #     }, HTTPStatus.CONFLICT
-            
-        current_year =  str(datetime.now().year)    
-            
 
 
         if data.get('user_type') == 'student':
@@ -89,7 +79,8 @@ class SignUp(Resource):
                 'message': 'Invalid user type'
             }, HTTPStatus.BAD_REQUEST
             
-            
+        current_year =  str(datetime.now().year)   
+        
         try:
             new_user.save()
                
